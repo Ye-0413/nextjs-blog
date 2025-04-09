@@ -1,0 +1,77 @@
+.card-spotlight {
+  position: relative;
+  overflow: hidden;
+  border-radius: 0.75rem;
+  /* Light mode defaults */
+  background-color: rgba(248, 250, 252, 0.8);
+  border: 1px solid rgba(203, 213, 225, 0.5);
+  padding: 2rem;
+  cursor: default;
+  /* Add these default properties in case they're not set */
+  --mouse-x: 50%;
+  --mouse-y: 50%;
+  --spotlight-color: rgba(255, 255, 255, 0.25);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Dark mode overrides */
+.dark .card-spotlight {
+  background-color: rgba(30, 41, 59, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.125);
+}
+
+.card-spotlight::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    800px circle at var(--mouse-x) var(--mouse-y),
+    var(--spotlight-color),
+    transparent 40%
+  );
+  z-index: 3;
+  opacity: 1;
+  transition: opacity 0.15s ease;
+}
+
+.card-spotlight::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  /* Light mode glow */
+  background: radial-gradient(
+    400px circle at var(--mouse-x) var(--mouse-y),
+    rgba(100, 116, 139, 0.1),
+    transparent 40%
+  );
+  z-index: 1;
+  opacity: 1;
+  transition: opacity 0.15s ease;
+}
+
+/* Dark mode glow */
+.dark .card-spotlight::after {
+  background: radial-gradient(
+    400px circle at var(--mouse-x) var(--mouse-y),
+    rgba(255, 255, 255, 0.1),
+    transparent 40%
+  );
+}
+
+/* Card content will automatically have a higher z-index */
+.card-spotlight > * {
+  position: relative;
+  z-index: 2;
+}
+
+/* Make sure the spotlight is visible on hover */
+.card-spotlight:hover::before,
+.card-spotlight:hover::after {
+  opacity: 1;
+} 

@@ -75,10 +75,17 @@ export default function RootLayout({
         <link rel="alternate" type="application/json" title="JSON" href="/feed.json" />
         <link rel="icon" href="/favicon.ico" sizes="any" />
       </head>
-      <body className="min-w-md overflow-x-hidden">
+      <body className="min-w-md overflow-x-hidden flex flex-col min-h-screen">
         <ThemeProvider>
           <Header />
-          {children}
+          <main className="flex-grow">
+            {children}
+          </main>
+          <footer className="py-6 mt-12 border-t border-gray-200 dark:border-gray-800">
+            <div className="max-w-6xl mx-auto px-4 text-center text-gray-600 dark:text-gray-400 text-sm">
+              © 2025 Ye Jia. All rights reserved.
+            </div>
+          </footer>
         </ThemeProvider>
       </body>
     </html>
