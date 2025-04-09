@@ -1,9 +1,9 @@
 export const config = {
   site: {
-    title: "Nextjs Blog Template",
-    name: "Nextjs Blog Template",
-    description: "Nextjs Blog Template",
-    keywords: ["Nextjs Blog Template", "AI", "Full Stack Developer"],
+    title: "Edu-metaverse",
+    name: "Edu-metaverse",
+    description: "Exploring the intersection of education and metaverse technology",
+    keywords: ["Education", "Metaverse", "EdTech", "Academic Research", "Virtual Learning"],
     url: "https://xxx.com",
     baseUrl: "https://xxx.com",
     image: "https://xxx.com/og-image.png",
@@ -15,8 +15,8 @@ export const config = {
     },
     manifest: "/site.webmanifest",
     rss: {
-      title: "Nextjs Blog Template",
-      description: "Thoughts on Full-stack development, AI",
+      title: "Edu-metaverse",
+      description: "Latest insights on Edu-Metaverse",
       feedLinks: {
         rss2: "/rss.xml",
         json: "/feed.json",
@@ -25,15 +25,13 @@ export const config = {
     },
   },
   author: {
-    name: "Your Name",
-    email: "your.email@example.com",
-    bio: "这是一个 Nextjs 博客模板",
+    name: "Ye Jia",
+    email: "academic-ye.jia@hotmail.com",
+    bio: "Exploring the future of education in the metaverse",
   },
   social: {
     github: "https://github.com/xxx",
     x: "https://x.com/xxx",
-    xiaohongshu: "https://www.xiaohongshu.com/user/profile/xxx",
-    wechat: "https://storage.xxx.com/images/wechat-official-account.png",
     buyMeACoffee: "https://www.buymeacoffee.com/xxx",
   },
   giscus: {
@@ -44,9 +42,13 @@ export const config = {
   navigation: {
     main: [
       { 
-        title: "文章", 
-        href: "/blog",
+        title: "Publications", 
+        href: "/publications",
       },
+      {
+        title: "Articles",
+        href: "/blog",
+      }
     ],
   },
   seo: {
@@ -56,7 +58,7 @@ export const config = {
     },
     openGraph: {
       type: "website" as const,
-      locale: "zh_CN",
+      locale: "en_US",
     },
     twitter: {
       card: "summary_large_image" as const,

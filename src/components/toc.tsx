@@ -40,37 +40,52 @@ export function DashboardTableOfContents({ toc }: TocProps) {
 
 function useActiveItem(itemIds: string[]) {
   const [activeId, setActiveId] = React.useState(null)
+  const prevActiveId = React.useRef(null)
 
   React.useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActiveId(entry.target.id)
-          }
-        })
-      },
-      { rootMargin: `0% 0% -80% 0%` }
-    )
-
-    itemIds?.forEach((id) => {
-      const element = document.getElementById(id)
-      if (element) {
-        observer.observe(element)
+    if (!itemIds?.length) return () => {};
+    
+    // Use a single callback function for performance
+    const callback = (entries) => {
+      // Find the first visible entry
+      const visible = entries.find(entry => entry.isIntersecting);
+      if (visible) {
+        const id = visible.target.id;
+        // Only update state if the active ID has changed
+        if (prevActiveId.current !== id) {
+          prevActiveId.current = id;
+          setActiveId(id);
+        }
       }
-    })
+    };
+
+    const observer = new IntersectionObserver(callback, { 
+      rootMargin: `0% 0% -80% 0%` 
+    });
+
+    // Create a Set of elements to observe (for efficient lookup)
+    const elements = new Set();
+    
+    // Observe all elements
+    itemIds.forEach((id) => {
+      const element = document.getElementById(id);
+      if (element) {
+        observer.observe(element);
+        elements.add(element);
+      }
+    });
 
     return () => {
-      itemIds?.forEach((id) => {
-        const element = document.getElementById(id)
-        if (element) {
-          observer.unobserve(element)
-        }
-      })
-    }
-  }, [itemIds])
+      // Use the cached Set instead of re-querying the DOM
+      elements.forEach(element => {
+        observer.unobserve(element);
+      });
+      
+      observer.disconnect();
+    };
+  }, [itemIds]);
 
-  return activeId
+  return activeId;
 }
 
 interface TreeProps {

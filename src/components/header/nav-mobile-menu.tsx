@@ -1,84 +1,106 @@
 "use client"
 
-import * as React from "react"
-import { Menu, ChevronDown, ChevronRight } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import {
-  Sheet,
-  SheetContent,
-  SheetTrigger,
-} from "@/components/ui/sheet"
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "@/components/ui/collapsible"
-import { cn } from "@/lib/utils"
-import { menuItems, MenuItem } from "./nav-data"
-
-const MenuItemComponent: React.FC<{ item: MenuItem; depth?: number }> = ({ item, depth = 0 }) => {
-  const [isOpen, setIsOpen] = React.useState(false)
-
-  if (item.submenu) {
-    return (
-      <Collapsible open={isOpen} onOpenChange={setIsOpen}>
-        <CollapsibleTrigger asChild>
-          <button
-            className={cn(
-              "flex w-full items-center justify-between py-2 text-lg font-medium transition-colors hover:text-primary",
-              depth > 0 && "pl-4"
-            )}
-          >
-            {item.title}
-            {isOpen ? (
-              <ChevronDown className="h-4 w-4" />
-            ) : (
-              <ChevronRight className="h-4 w-4" />
-            )}
-          </button>
-        </CollapsibleTrigger>
-        <CollapsibleContent>
-          {item.submenu.map((subItem) => (
-            <MenuItemComponent key={subItem.title} item={subItem} depth={depth + 1} />
-          ))}
-        </CollapsibleContent>
-      </Collapsible>
-    )
-  }
-
-  return (
-    <a
-      href={item.href}
-      title={item.title}
-      className={cn(
-        "block py-2 text-lg font-medium transition-colors hover:text-primary",
-        depth > 0 && "pl-4",
-        item.href === "/" && "text-primary"
-      )}
-    >
-      {item.title}
-    </a>
-  )
-}
+import { Menu } from 'lucide-react';
+import { useRouter } from "next/navigation";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { cn } from "@/lib/utils";
+import Dock, { DockItem } from "@/components/Dock";
+import { useEffect, useState } from "react";
+import { Home, Book, FileText, SquareTerminal } from "lucide-react";
+import { useTheme } from "next-themes";
 
 export function NavMobileMenu() {
-  const [open, setOpen] = React.useState(false)
+  const pathname = usePathname();
+  const router = useRouter();
+  const [isOpen, setIsOpen] = useState(false);
+  const { theme, resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+  
+  // Use effect to handle mounting
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+  
+  // Only use theme after mounting to prevent hydration mismatch
+  const isDarkMode = mounted && (resolvedTheme === 'dark');
+
+  // Define navigation items
+  const navItems = [
+    { title: "Home", href: "/" },
+    { title: "Blog", href: "/blog" },
+    { title: "Publications", href: "/publications" }
+  ];
+
+  // Close sheet when navigating
+  useEffect(() => {
+    setIsOpen(false);
+  }, [pathname]);
+
+  // Map the navigation items to dock items with appropriate icons
+  const dockItems: DockItem[] = navItems.map((item) => {
+    // Determine if this item is active
+    const isActive = pathname === item.href || 
+      (item.href !== "/" && pathname.startsWith(item.href));
+
+    // Set the appropriate icon based on the item
+    let icon;
+    
+    switch (item.title.toLowerCase()) {
+      case "home":
+        icon = <Home className={cn("size-5", isActive ? "text-primary" : mounted ? (isDarkMode ? "text-gray-300" : "text-gray-500") : "opacity-0 transition-opacity")} />;
+        break;
+      case "blog":
+        icon = <FileText className={cn("size-5", isActive ? "text-primary" : mounted ? (isDarkMode ? "text-gray-300" : "text-gray-500") : "opacity-0 transition-opacity")} />;
+        break;
+      case "publications":
+        icon = <Book className={cn("size-5", isActive ? "text-primary" : mounted ? (isDarkMode ? "text-gray-300" : "text-gray-500") : "opacity-0 transition-opacity")} />;
+        break;
+      default:
+        icon = <SquareTerminal className={cn("size-5", isActive ? "text-primary" : mounted ? (isDarkMode ? "text-gray-300" : "text-gray-500") : "opacity-0 transition-opacity")} />;
+    }
+
+    return {
+      icon,
+      label: item.title,
+      onClick: () => {
+        router.push(item.href);
+        setIsOpen(false);
+      },
+      className: isActive ? "active" : ""
+    };
+  });
 
   return (
-    <Sheet open={open} onOpenChange={setOpen}>
+    <Sheet open={isOpen} onOpenChange={setIsOpen}>
       <SheetTrigger asChild>
-        <Button variant="ghost" size="icon" className="md:hidden ml-4">
-          <Menu className="h-10 w-10" />
-          <span className="sr-only">Toggle menu</span>
-        </Button>
+        <button 
+          className={cn("p-2 md:hidden", mounted ? (isDarkMode ? "text-gray-100" : "text-gray-900") : "text-transparent")}
+          aria-label="Open menu"
+          suppressHydrationWarning
+        >
+          <Menu className="h-6 w-6" />
+        </button>
       </SheetTrigger>
-      <SheetContent side="left" className="w-[240px] sm:w-[300px]">
-        <nav className="flex flex-col space-y-4 ml-4 mt-4">
-          {menuItems.map((item) => (
-            <MenuItemComponent key={item.title} item={item} />
-          ))}
-        </nav>
+      <SheetContent side="left" className={cn("flex flex-col p-4", mounted ? (isDarkMode ? "bg-gray-900 text-gray-100" : "bg-white text-gray-900") : "bg-gray-100 text-gray-500")}>
+        <div className="flex flex-col space-y-1 mt-8">
+          <div className="flex justify-center mb-8">
+            {mounted && (
+              <Dock 
+                items={dockItems}
+                magnification={60}
+                baseItemSize={45}
+                panelHeight={220}
+                dockHeight={300}
+                distance={100}
+                className="dock-mobile"
+                vertical={true}
+              />
+            )}
+          </div>
+        </div>
       </SheetContent>
     </Sheet>
-  )
+  );
 }

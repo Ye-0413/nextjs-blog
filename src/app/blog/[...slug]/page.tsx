@@ -5,6 +5,7 @@ import { notFound } from "next/navigation"
 import { getTableOfContents } from "@/lib/toc"
 import { DashboardTableOfContents } from "@/components/toc"
 import { MDXRemote } from 'next-mdx-remote-client/rsc'
+import Link from "next/link"
 import count from 'word-count'
 import { components } from "@/components/mdx-components"
 import remarkGfm from 'remark-gfm'
@@ -106,14 +107,28 @@ export default async function BlogPage(props: BlogsPageProps) {
           <h1 className="text-[32px] font-bold">{blog.title}</h1>
         </div>
 
-        <div className="my-4">
+        <div className="flex flex-col gap-4 my-4">
           <p className="text-sm">
-            {new Date(blog.date).toLocaleDateString('zh-CN', {
+            {new Date(blog.date).toLocaleDateString('en-US', {
               year: 'numeric',
-              month: 'numeric', 
+              month: 'long', 
               day: 'numeric'
-            }).replace(/\//g, '年').replace(/\//g, '月') + '日'} · {count(blog.content)} 字
+            })} · {count(blog.content)} words
           </p>
+          
+          {blog.keywords && blog.keywords.length > 0 && (
+            <div className="flex flex-wrap gap-2">
+              {blog.keywords.map((keyword) => (
+                <Link 
+                  key={keyword} 
+                  href={`/keywords/${encodeURIComponent(keyword)}`}
+                  className="bg-gray-100 hover:bg-gray-200 text-gray-800 px-3 py-1 rounded-md text-sm transition-colors"
+                >
+                  {keyword}
+                </Link>
+              ))}
+            </div>
+          )}
         </div>
 
         <div className="">

@@ -45,10 +45,13 @@
 
 :root {
   --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
+  --background: #f8fafc;
+  --foreground: #1e293b;
+  --background-end: #f1f5f9;
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.145 0 0);
+  --card-bg: rgba(255, 255, 255, 0.8);
+  --card-bg-hover: rgba(255, 255, 255, 0.9);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.145 0 0);
   --primary: oklch(0.205 0 0);
@@ -76,13 +79,18 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+  --text-primary: #1e293b;
+  --text-secondary: #64748b;
 }
 
 .dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
+  --background: #0f172a;
+  --foreground: #f8fafc;
+  --background-end: #1e293b;
   --card: oklch(0.205 0 0);
   --card-foreground: oklch(0.985 0 0);
+  --card-bg: rgba(30, 41, 59, 0.8);
+  --card-bg-hover: rgba(30, 41, 59, 0.9);
   --popover: oklch(0.205 0 0);
   --popover-foreground: oklch(0.985 0 0);
   --primary: oklch(0.922 0 0);
@@ -110,6 +118,8 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
+  --text-primary: #f8fafc;
+  --text-secondary: #cbd5e1;
 }
 
 @layer base {
@@ -117,6 +127,44 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground transition-colors duration-300;
   }
 }
+
+/* Dark mode transitions */
+html.dark {
+  color-scheme: dark;
+}
+
+.dark .bg-white\/70 {
+  @apply bg-slate-900/70;
+}
+
+.dark .bg-white\/80 {
+  @apply bg-slate-900/80;
+}
+
+.dark .text-gray-600 {
+  @apply text-slate-300;
+}
+
+.dark .text-gray-500 {
+  @apply text-slate-400;
+}
+
+/* Smooth transitions for theme changes */
+.bg-white\/70,
+.bg-white\/80,
+.text-gray-600,
+.text-gray-500,
+.bg-slate-900\/70,
+.bg-slate-900\/80,
+.text-slate-300,
+.text-slate-400 {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Add dark mode support directly after the tailwind imports */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

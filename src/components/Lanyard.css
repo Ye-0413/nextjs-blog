@@ -1,0 +1,303 @@
+.lanyard-container {
+  position: absolute;
+  top: 0;
+  right: 20px;
+  width: 180px;
+  height: 300px;
+  overflow: visible;
+  z-index: 100;
+  pointer-events: none; /* Allow events to pass through the container */
+}
+
+.lanyard-strand {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100px;
+  height: 1px;
+  background: linear-gradient(to bottom, rgba(100, 100, 100, 0.8), rgba(100, 100, 100, 0.3));
+  transform-origin: top left;
+  z-index: 98;
+}
+
+.lanyard-card {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 60px;
+  height: 90px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transform-style: preserve-3d;
+  transform: perspective(800px);
+  backface-visibility: hidden;
+  transition: box-shadow 0.3s ease;
+  cursor: grab; /* Show grab cursor by default */
+  pointer-events: auto; /* Ensure card receives pointer events */
+  user-select: none; /* Prevent text selection during drag */
+  touch-action: none; /* Prevent browser handling of touch events */
+  z-index: 99;
+}
+
+.lanyard-card:active {
+  cursor: grabbing; /* Change cursor when actively dragging */
+}
+
+.lanyard-card.light {
+  background: linear-gradient(135deg, #f5f5f5 0%, #ffffff 100%);
+  border: 1px solid #e0e0e0;
+}
+
+.lanyard-card.dark {
+  background: linear-gradient(135deg, #2c2c2c 0%, #1a1a1a 100%);
+  border: 1px solid #333333;
+}
+
+/* Add more interactive feel with hover effects */
+.lanyard-card:hover {
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+}
+
+.lanyard-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transform-style: preserve-3d;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.lanyard-card-front {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.lanyard-card-logo {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  margin-bottom: 10px;
+  position: relative;
+  overflow: hidden;
+  transform-style: preserve-3d;
+}
+
+.lanyard-logo-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transform: translateZ(1px);
+}
+
+.light .lanyard-card-logo {
+  background-color: rgba(0,0,0,0.05);
+  box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
+}
+
+.dark .lanyard-card-logo {
+  background-color: rgba(255,255,255,0.1);
+  box-shadow: inset 0 0 10px rgba(0,0,0,0.2);
+}
+
+/* Punch hole at top of card */
+.lanyard-card:before {
+  content: '';
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background-color: transparent;
+  transform: translateX(-50%);
+  box-shadow: inset 0 0 4px rgba(0,0,0,0.3);
+  border: 2px solid rgba(0,0,0,0.15);
+  z-index: 2;
+}
+
+.light .lanyard-card:before {
+  background-color: rgba(0,0,0,0.05);
+  border-color: rgba(0,0,0,0.12);
+}
+
+.dark .lanyard-card:before {
+  background-color: rgba(255,255,255,0.05);
+  border-color: rgba(255,255,255,0.12);
+}
+
+/* 3D effects */
+.lanyard-card:after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 10px;
+  background: linear-gradient(135deg, 
+    rgba(255,255,255,0.25) 0%, 
+    rgba(255,255,255,0) 50%, 
+    rgba(0,0,0,0.05) 100%
+  );
+  pointer-events: none;
+  z-index: 3;
+}
+
+/* Card shadow on surface */
+.lanyard-card-shadow {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  width: 70px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(0,0,0,0.2);
+  filter: blur(10px);
+  transform: translateX(-50%);
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .lanyard-container {
+    width: 80px;
+    height: 150px;
+    right: 10px;
+  }
+  
+  .lanyard-card {
+    width: 60px;
+    height: 90px;
+  }
+  
+  .lanyard-card-logo {
+    width: 35px;
+    height: 35px;
+  }
+}
+
+/* Mobile view - make card smaller */
+@media (max-width: 640px) {
+  .lanyard-container {
+    top: 10px;
+    right: 10px;
+    width: 70px;
+    height: 130px;
+  }
+  
+  .lanyard-strand {
+    height: 1.5px;
+  }
+  
+  .lanyard-card {
+    width: 50px;
+    height: 75px;
+  }
+  
+  .lanyard-card-logo {
+    width: 30px;
+    height: 30px;
+  }
+  
+  .lanyard-card:before {
+    width: 10px;
+    height: 10px;
+    top: 8px;
+  }
+}
+
+/* Animations */
+@keyframes sway {
+  0% { transform: rotate(-1deg); }
+  50% { transform: rotate(1deg); }
+  100% { transform: rotate(-1deg); }
+}
+
+/* Touch devices */
+@media (hover: none) {
+  .lanyard-card {
+    cursor: pointer;
+  }
+}
+
+/* Prefers reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .lanyard-card, .lanyard-strand {
+    transition: none;
+  }
+}
+
+/* Keep the fallback button for older browsers */
+.lanyard-fallback {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+
+.theme-toggle-btn {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.theme-toggle-btn.light {
+  background-color: #f8fafc;
+  color: #1e293b;
+}
+
+.theme-toggle-btn.dark {
+  background-color: #1e293b;
+  color: #f8fafc;
+}
+
+.theme-toggle-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+}
+
+.theme-toggle-btn:active {
+  transform: scale(0.95);
+}
+
+@media (max-width: 640px) {
+  .lanyard-container {
+    top: 10px;
+    right: 10px;
+    width: 60px;
+    height: 90px;
+  }
+  
+  .lanyard-strand {
+    height: 30px;
+  }
+  
+  .lanyard-card {
+    top: 30px;
+    width: 45px;
+    height: 45px;
+  }
+  
+  .lanyard-card-content {
+    font-size: 1.25rem;
+  }
+} 

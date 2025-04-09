@@ -10,13 +10,24 @@ import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import { SquareTerminal } from "lucide-react";
+import { useTheme } from "next-themes";
+import { useEffect, useState } from "react";
 
 export function Header() {
   const pathname = usePathname();
   const isBlogPage = pathname.includes("/blog/");
+  const { theme, resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+  
+  // Only use theme after mounting to prevent hydration mismatch
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+  
+  const isDarkMode = mounted && resolvedTheme === "dark";
 
   return (
-    <header className="pt-4">
+    <header className={cn("pt-4", mounted ? (isDarkMode ? "text-gray-100" : "text-gray-900") : "text-transparent")}>
       <motion.div
         initial={{ maxWidth: "48rem" }}
         animate={{ maxWidth: isBlogPage ? "72rem" : "48rem" }}
@@ -28,7 +39,7 @@ export function Header() {
 
         {/* Logo */}
         <Link href="/" title="Home" className="flex items-center gap-4 md:order-first">
-          <SquareTerminal className="w-10 h-10" />
+          <SquareTerminal className={cn("w-10 h-10", mounted ? (isDarkMode ? "text-gray-100" : "text-gray-900") : "text-transparent transition-colors duration-300")} />
         </Link>
 
         {/* Desktop navigation */}
@@ -37,7 +48,7 @@ export function Header() {
         </div>
 
         {/* Right side buttons */}
-        <div className="flex items-center space-x-2 md:space-x-8 mr-4">
+        <div className={cn("flex items-center space-x-2 md:space-x-8 mr-4", mounted ? (isDarkMode ? "text-gray-100" : "text-gray-900") : "text-transparent transition-colors duration-300")}>
           <Link href="https://github.com/guangzhengli" title="Github">
             <GithubIcon />
           </Link>
@@ -49,6 +60,6 @@ export function Header() {
           </Link>
         </div>
       </motion.div>
-    </header >
+    </header>
   );
 }

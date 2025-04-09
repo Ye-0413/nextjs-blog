@@ -1,61 +1,127 @@
-<h1 align=center>Nextjs Blog Template | Ladder Theme | <a href="https://guangzhengli.com">Blog</a></h1>
+<h1 align=center>Edu-metaverse | Academic Blog</h1>
 
-本仓库是 [hugo-ladder-theme](https://github.com/guangzhengli/hugo-theme-ladder) 的 Nextjs 实现。
+This is a Next.js blog template focused on education and metaverse technologies. It is based on the [hugo-ladder-theme](https://github.com/guangzhengli/hugo-theme-ladder).
 
-这是一个 Nextjs 博客模板，下面介绍这个模板的一些基本用法。
-
-## 如何本地进行开发？
+## Local Development
 
 ```bash
 npm install
-
-
 npm run dev
 ```
 
-## 如何部署
+## Deployment
 
-Clone 或者 fork 到本地，按照下面的方式修改配置，然后在 [Vercel](https://vercel.com) 选择该仓库进行部署。
+Clone or fork this repository, modify the configuration as needed, and deploy it on [Vercel](https://vercel.com).
 
-部署的配置所有选择默认即可，不需要进行特殊配置。
+All default deployment configurations are sufficient; no special configuration is needed.
 
-如果你需要使用 edge 或者 fluid compute，请自行修改代码或者 vercel 配置。
+# Blog Configuration
 
-# 博客配置
+## 1. How to Write Blog Posts
 
-## 1. 如何编写博客
+Blog posts should be placed in the `src/content/blog` directory as markdown or mdx files.
 
-这个仓库的博客文件需要放在 `src/content/blog` 目录下，可以是 markdown 文件，也可以是 mdx 文件。
+The following metadata fields can be configured:
 
-有以下这些元数据需要用户自行根据需要进行配置：
+- `title`: Blog post title
+- `date`: Publication date
+- `updated`: Update date
+- `keywords`: Keywords for SEO optimization
+- `featured`: Whether to display on the homepage
+- `summary`: Blog post summary
 
-- `title`: 博客标题
-- `date`: 博客发布日期
-- `updated`: 博客更新日期
-- `keywords`: 博客关键词，优化 SEO
-- `featured`: 是否放在首页
-- `summary`: 博客摘要
+## 2. Academic Publications
 
-## 2. 博客配置
+### 2.1 Adding Publications Manually
 
-博客的所有配置都集中在 `src/lib/config.ts` 文件中，这样做的好处是：
+Academic publications should be placed in the `src/content/publications` directory as markdown files with the following metadata:
 
-1. 集中管理：所有配置都在一个文件中，方便维护和修改
-2. 类型安全：使用 TypeScript 可以获得类型检查和自动补全
-3. 复用性：避免重复的配置散落在各个文件中
-4. 一致性：确保所有地方使用相同的配置值
+```markdown
+---
+title: "Your Publication Title"
+authors: [
+  "Last, First",
+  "Last, First",
+  "Last, First"
+]
+year: 2023
+journal: "Journal or Conference Name"
+abstract: "Your abstract text..."
+featured: false
+doi: "10.1000/journal.paper.id"
+url: "https://link-to-publication.com"
+keywords: [
+  "Keyword 1",
+  "Keyword 2", 
+  "Keyword 3"
+]
+---
+```
 
-### 2.1 站点基本配置
+### 2.2 Batch Import from BibTeX
+
+For easy management of your academic publications, you can import them from a BibTeX file:
+
+1. Create a BibTeX file (e.g., `publications.bib`) with your publications
+2. Run the import script:
+
+```bash
+npm run import-publications
+```
+
+This will automatically create markdown files for all publications in your BibTeX file.
+
+#### BibTeX Format Example
+
+```bibtex
+@article{author2023title,
+  title={Title of the Publication},
+  author={Author, First and Second, Author},
+  journal={Journal Name},
+  year={2023},
+  volume={42},
+  number={3},
+  pages={100--115},
+  doi={10.1000/journal.paper.id},
+  abstract={Abstract text goes here...},
+  keywords={Keyword 1, Keyword 2, Keyword 3}
+}
+```
+
+### 2.3 Adding Images to Publications
+
+To add images to publications, add the following fields to the frontmatter:
+
+```markdown
+image: "/images/publications/your-image.jpg"
+imageCaption: "Figure 1: Description of the image"
+imageWidth: 1280
+imageHeight: 720
+imageAspectRatio: "16:9"
+```
+
+Place the image files in the `/public/images/publications/` directory.
+
+## 3. Site Configuration
+
+All site configuration is centralized in the `src/lib/config.ts` file, which has these benefits:
+
+1. Centralized management: All configuration in one file for easy maintenance
+2. Type safety: TypeScript provides type checking and auto-completion
+3. Reusability: Avoid duplicate configuration scattered across files
+4. Consistency: Ensure all parts of the site use the same configuration values
+
+### 3.1 Basic Site Configuration
 
 ```typescript
 site: {
-  title: "你的博客标题",
-  name: "你的博客名称",
-  description: "博客描述",
-  keywords: ["关键词1", "关键词2"],
-  url: "https://你的域名.com",
-  baseUrl: "https://你的域名.com",
-  image: "https://你的域名.com/og-image.png",
+  title: "Your Blog Title",
+  name: "Your Blog Name",
+  description: "Blog Description",
+  keywords: ["Keyword1", "Keyword2"],
+  url: "https://your-domain.com",
+  baseUrl: "https://your-domain.com",
+  image: "https://your-domain.com/og-image.png",
   favicon: {
     ico: "/favicon.ico",
     png: "/favicon.png",
@@ -66,147 +132,72 @@ site: {
 }
 ```
 
-这些配置用于：
-- 网站的基本信息展示
-- SEO 优化
-- 浏览器标签页图标
-- 社交媒体分享预览
+These settings are used for:
+- Basic site information
+- SEO optimization
+- Browser tab icons
+- Social media previews
 
-### 2.2 作者信息配置
+### 3.2 Author Information
 
 ```typescript
 author: {
-  name: "你的名字",
-  email: "你的邮箱",
-  bio: "个人简介",
+  name: "Your Name",
+  email: "your-email@example.com",
+  bio: "Personal bio",
 }
 ```
 
-作者信息会用于：
-- 首页展示
-- RSS 订阅源信息
-- 博客文章的作者信息
+Author information is used in:
+- Homepage display
+- RSS feed information
+- Blog post author details
 
-### 2.3 社交媒体配置
+### 3.3 Social Media Links
 
 ```typescript
 social: {
-  github: "https://github.com/你的用户名",
-  x: "https://x.com/你的用户名",
-  xiaohongshu: "https://www.xiaohongshu.com/user/profile/你的ID",
-  wechat: "你的微信二维码图片链接",
-  buyMeACoffee: "https://www.buymeacoffee.com/你的用户名",
+  github: "https://github.com/your-username",
+  x: "https://x.com/your-username",
+  buyMeACoffee: "https://www.buymeacoffee.com/your-username",
 }
 ```
 
-这些链接会显示在：
-- 首页的社交媒体链接区域
-- 导航栏的社交媒体图标
+These links will appear in:
+- Homepage social media link section
+- Navigation bar social media icons
 
-### 2.4 评论系统配置
-
-```typescript
-giscus: {
-  repo: "你的GitHub仓库名",
-  repoId: "仓库ID",
-  categoryId: "分类ID",
-}
-```
-
-使用 Giscus 作为评论系统，需要：
-1. 在 GitHub 上安装 Giscus 应用
-2. 在你的仓库中启用 Discussions
-3. 获取配置信息并填入这里
-
-### 2.5 导航菜单配置
+### 3.4 Navigation Menu
 
 ```typescript
 navigation: {
   main: [
     { 
-      title: "文章", 
+      title: "Academic Publications", 
+      href: "/publications",
+    },
+    { 
+      title: "Articles", 
       href: "/blog",
     },
-    // 可以添加更多导航项
+    // You can add more navigation items
   ],
 }
 ```
 
-这里配置网站的导航菜单，支持：
-- 普通链接
-- 带子菜单的下拉菜单
+This configures the site's navigation menu with:
+- Regular links
+- Dropdown menus with sub-items
 
-### 2.6 SEO 配置
+## 4. Generating RSS Feeds and Sitemaps
 
-```typescript
-seo: {
-  metadataBase: new URL("https://你的域名.com"),
-  alternates: {
-    canonical: './',
-  },
-  openGraph: {
-    type: "website" as const,
-    locale: "zh_CN",
-  },
-  twitter: {
-    card: "summary_large_image" as const,
-    creator: "@你的推特用户名",
-  },
-}
-```
-
-这些配置用于：
-- 搜索引擎优化
-- 社交媒体分享卡片
-- 网站元数据
-
-### 2.7 RSS 订阅配置
-
-```typescript
-rss: {
-  title: "你的博客标题",
-  description: "博客描述",
-  feedLinks: {
-    rss2: "/rss.xml",
-    json: "/feed.json",
-    atom: "/atom.xml",
-  },
-}
-```
-
-这些配置用于生成：
-- RSS 2.0 订阅源
-- JSON Feed
-- Atom 订阅源
-
-## 3. 如何修改配置
-
-1. 打开 `src/lib/config.ts` 文件
-2. 根据你的需求修改相应的配置项
-3. 保存文件后，Next.js 会自动重新构建并应用新的配置
-
-注意事项：
-- 确保所有 URL 都是有效的
-- 图片链接应该是可访问的
-- 社交媒体链接要填写完整的 URL
-- 配置修改后，建议检查网站的：
-  - 首页展示
-  - 导航菜单
-  - SEO 信息
-  - 社交媒体分享效果
-  - RSS 订阅源
-
-## 4. 如何生成 RSS 订阅源
-
-修改 scripts/generate-rss.js 文件中的配置，然后运行：
+To generate RSS feeds:
 
 ```bash
 npm run generate-rss
 ```
 
-## 5. 如何生成 Sitemap
-
-修改 scripts/generate-sitemap.js 文件中的配置，然后运行：
+To generate a sitemap:
 
 ```bash
 npm run generate-sitemap

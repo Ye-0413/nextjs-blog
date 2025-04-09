@@ -1,77 +1,87 @@
 "use client"
 
-import * as React from "react"
 import Link from "next/link"
-
+import { useRouter } from "next/navigation"
+import { config } from "@/lib/config"
+import { usePathname } from "next/navigation"
 import { cn } from "@/lib/utils"
-import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-  navigationMenuTriggerStyle,
-} from "@/components/ui/navigation-menu"
-import { menuItems } from "./nav-data"
+import Dock, { DockItem } from "@/components/Dock"
+import { LayoutGroup } from "framer-motion"
+import { Home, Book, FileText, SquareTerminal } from "lucide-react"
+import { useTheme } from "next-themes"
+import { useEffect, useState } from "react"
 
-export function NavDesktopMenu() {
-  return (
-    <NavigationMenu>
-      <NavigationMenuList>
-        {menuItems.map((item) => (
-          <NavigationMenuItem key={item.title}>
-            {item.submenu ? (
-              <>
-                <NavigationMenuTrigger>{item.title}</NavigationMenuTrigger>
-                <NavigationMenuContent>
-                  <ul className="grid h-16 w-[150px] p-2">
-                    {item.submenu.map((subItem) => (
-                      <ListItem
-                        key={subItem.title}
-                        title={subItem.title}
-                        href={subItem.href}
-                      >
-                        {subItem.title}
-                      </ListItem>
-                    ))}
-                  </ul>
-                </NavigationMenuContent>
-              </>
-            ) : (
-              <Link href={item.href ?? ""} title={item.title} legacyBehavior passHref>
-                <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                  {item.title}
-                </NavigationMenuLink>
-              </Link>
-            )}
-          </NavigationMenuItem>
-        ))}
-      </NavigationMenuList>
-    </NavigationMenu>
-  )
+interface NavItemWithHref extends DockItem {
+  href: string
 }
 
-const ListItem = React.forwardRef<
-  React.ElementRef<"a">,
-  React.ComponentPropsWithoutRef<"a">
->(({ className, title, ...props }, ref) => {
+export function NavDesktopMenu() {
+  const pathname = usePathname()
+  const router = useRouter()
+  const { theme, resolvedTheme } = useTheme()
+  const [mounted, setMounted] = useState(false)
+  
+  // Use effect to handle mounting
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+  
+  // Only use theme after mounting to prevent hydration mismatch
+  const isDarkMode = mounted && (resolvedTheme === 'dark')
+
+  // Define navigation items manually
+  const navItems = [
+    { title: "Home", href: "/" },
+    { title: "Blog", href: "/blog" },
+    { title: "Publications", href: "/publications" }
+  ]
+
+  // Map the navigation items to dock items with appropriate icons
+  const dockItems: DockItem[] = navItems.map((item) => {
+    // Determine if this item is active
+    const isActive = pathname === item.href || 
+      (item.href !== "/" && pathname.startsWith(item.href))
+
+    // Set the appropriate icon based on the item
+    let icon
+    
+    switch (item.title.toLowerCase()) {
+      case "home":
+        icon = <Home className={cn("size-5", isActive ? "text-primary" : mounted ? (isDarkMode ? "text-gray-300" : "text-gray-500") : "opacity-0 transition-opacity")} />
+        break
+      case "blog":
+        icon = <FileText className={cn("size-5", isActive ? "text-primary" : mounted ? (isDarkMode ? "text-gray-300" : "text-gray-500") : "opacity-0 transition-opacity")} />
+        break
+      case "publications":
+        icon = <Book className={cn("size-5", isActive ? "text-primary" : mounted ? (isDarkMode ? "text-gray-300" : "text-gray-500") : "opacity-0 transition-opacity")} />
+        break
+      default:
+        icon = <SquareTerminal className={cn("size-5", isActive ? "text-primary" : mounted ? (isDarkMode ? "text-gray-300" : "text-gray-500") : "opacity-0 transition-opacity")} />
+    }
+
+    return {
+      icon,
+      label: item.title,
+      onClick: () => router.push(item.href),
+      className: isActive ? "active" : "",
+    }
+  })
+
   return (
-    <li>
-      <NavigationMenuLink asChild>
-        <a
-          ref={ref}
-          title={title}
-          className={cn(
-            "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
-            className
+    <div className="hidden md:block">
+      <LayoutGroup>
+        <div className="flex items-center space-x-1 relative">
+          {mounted && (
+            <Dock 
+              items={dockItems}
+              magnification={60}
+              baseItemSize={40}
+              panelHeight={50}
+              distance={80}
+            />
           )}
-          {...props}
-        >
-          <div className="text-2xg font-bold leading-none">{title}</div>
-        </a>
-      </NavigationMenuLink>
-    </li>
+        </div>
+      </LayoutGroup>
+    </div>
   )
-})
-ListItem.displayName = "ListItem"
+}
