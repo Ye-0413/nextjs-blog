@@ -76,7 +76,7 @@
 
 .dock-label {
   position: absolute;
-  top: -45px;
+  bottom: -45px;
   left: 50%;
   transform: translateX(-50%);
   background-color: rgba(0, 0, 0, 0.9);
