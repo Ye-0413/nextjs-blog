@@ -49,7 +49,7 @@ export default function NewsPage() {
   }, [sortedNews]);
 
   return (
-    <div className="max-w-6xl mx-auto py-8 px-4">
+    <div className="max-w-4xl mx-auto py-8 px-4">
       <h1 className="text-3xl font-bold mb-8 text-gray-900 dark:text-white">Recent News</h1>
       
       <div className="space-y-16">
@@ -59,15 +59,15 @@ export default function NewsPage() {
               {month}
             </h2>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="space-y-6">
               {items.map((newsItem) => (
                 <SpotlightCard 
                   key={newsItem.slug} 
-                  className="p-4 transition-all hover:shadow-md h-full"
+                  className="p-4 transition-all hover:shadow-md w-full"
                   lightModeSpotlightColor="rgba(93, 140, 179, 0.15)"
                   darkModeSpotlightColor="rgba(93, 140, 179, 0.25)"
                 >
-                  <article className="h-full flex flex-col">
+                  <article className="flex flex-col">
                     <div className="flex-1">
                       <div className="flex flex-col justify-between">
                         <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
