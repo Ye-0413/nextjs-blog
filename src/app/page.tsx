@@ -9,6 +9,8 @@ import TextPressure from "@/components/TextPressure";
 import SpotlightCard from "@/components/SpotlightCard";
 import { useState, useEffect } from "react";
 import { ExternalLink } from "lucide-react";
+import { allTalks } from "@/lib/talk-data";
+import Image from "next/image";
 
 export default function Home() {
   const [mounted, setMounted] = useState(false);
@@ -26,23 +28,12 @@ export default function Home() {
     .filter((pub: any) => pub.featured === true)
     .sort((a: any, b: any) => b.year - a.year);
 
+  const featuredTalks = allTalks
+    .filter((talk) => talk.featured === true)
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+
   return (
     <div className="relative min-h-screen">
-      {/* Particles background effect */}
-      {mounted && (
-        <Particles 
-          particleCount={150}
-          particleColors={["#5d8cb3", "#4ac29a", "#7d62de"]}
-          particleSpread={8}
-          speed={0.05}
-          particleBaseSize={120}
-          moveParticlesOnHover={true}
-          particleHoverFactor={0.5}
-          alphaParticles={true}
-          sizeRandomness={0.8}
-        />
-      )}
-      
       <div className="relative max-w-6xl mx-auto px-4 py-10 z-10">
         {/* Introduction with TextPressure title */}
         <SpotlightCard 
@@ -179,6 +170,93 @@ export default function Home() {
                 className="inline-flex items-center px-6 py-3 text-base font-medium text-gray-900 dark:text-white bg-gray-100 dark:bg-gray-800 rounded-md hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors shadow-sm"
               >
                 View All Publications
+              </Link>
+            </div>
+          </div>
+        )}
+
+        {/* Featured Talks Section */}
+        {featuredTalks.length > 0 && (
+          <div className="space-y-6 mt-16">
+            <h2 className="text-2xl font-bold mb-8 text-gray-900 dark:text-white">Featured Talks</h2>
+            <div className="grid grid-cols-1 gap-8">
+              {featuredTalks.map((talk) => (
+                <SpotlightCard 
+                  key={talk.slug} 
+                  className="p-6 transition-all hover:shadow-md" 
+                  lightModeSpotlightColor="rgba(125, 98, 222, 0.15)"
+                  darkModeSpotlightColor="rgba(125, 98, 222, 0.25)"
+                >
+                  <div className="flex flex-col gap-6">
+                    {talk.coverImage && (
+                      <div className="relative w-full aspect-video">
+                        <Image
+                          src={talk.coverImage}
+                          alt={talk.title}
+                          fill
+                          className="object-cover rounded-lg"
+                          priority
+                        />
+                      </div>
+                    )}
+                    <div className="flex flex-col justify-between">
+                      <div>
+                        <Link href={`/talks/${talk.slug}`}>
+                          <h3 className="text-2xl font-semibold hover:underline text-gray-900 dark:text-white mb-3">
+                            {talk.title}
+                          </h3>
+                        </Link>
+                        <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 mb-4">
+                          <time dateTime={talk.date}>
+                            {new Date(talk.date).toLocaleDateString('en-US', {
+                              year: 'numeric',
+                              month: 'long',
+                              day: 'numeric'
+                            })}
+                          </time>
+                          <span>•</span>
+                          <span>{talk.event}</span>
+                          {talk.location && (
+                            <>
+                              <span>•</span>
+                              <span>{talk.location}</span>
+                            </>
+                          )}
+                        </div>
+                        <p className="text-gray-600 dark:text-gray-300 mb-6">
+                          {talk.summary}
+                        </p>
+                      </div>
+                      <div className="flex gap-4">
+                        <Link
+                          href={`/talks/${talk.slug}`}
+                          className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 font-medium"
+                        >
+                          View Details
+                        </Link>
+                        {talk.videoUrl && (
+                          <a
+                            href={talk.videoUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center gap-1 text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 font-medium"
+                          >
+                            <span>Watch on Bilibili</span>
+                            <ExternalLink className="w-3 h-3" />
+                          </a>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                </SpotlightCard>
+              ))}
+            </div>
+            <div className="flex justify-center mt-8">
+              <Link 
+                href="/talks" 
+                className="inline-flex items-center px-6 py-3 text-base font-medium text-gray-900 dark:text-white bg-gray-100 dark:bg-gray-800 rounded-md hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors shadow-sm"
+              >
+                View All Talks
               </Link>
             </div>
           </div>

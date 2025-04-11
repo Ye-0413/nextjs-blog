@@ -92,16 +92,16 @@ interface ParticlesProps {
 }
 
 const Particles = ({
-  particleCount = 200,
-  particleSpread = 10,
+  particleCount = 600,
+  particleSpread = 20,
   speed = 0.1,
   particleColors,
   moveParticlesOnHover = false,
   particleHoverFactor = 1,
   alphaParticles = false,
-  particleBaseSize = 100,
-  sizeRandomness = 1,
-  cameraDistance = 20,
+  particleBaseSize = 200,
+  sizeRandomness = 20,
+  cameraDistance = 40,
   disableRotation = false,
   className,
 }: ParticlesProps) => {

@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useRef, useEffect } from "react";
 import { useTheme } from "next-themes";
 import "./SpotlightCard.css";

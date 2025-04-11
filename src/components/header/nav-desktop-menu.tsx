@@ -33,7 +33,8 @@ export function NavDesktopMenu() {
   const navItems = [
     { title: "Home", href: "/" },
     { title: "Blog", href: "/blog" },
-    { title: "Publications", href: "/publications" }
+    { title: "Publications", href: "/publications" },
+    { title: "Talks", href: "/talks" }
   ]
 
   // Map the navigation items to dock items with appropriate icons
@@ -54,6 +55,9 @@ export function NavDesktopMenu() {
         break
       case "publications":
         icon = <Book className={cn("size-5", isActive ? "text-primary" : mounted ? (isDarkMode ? "text-gray-300" : "text-gray-500") : "opacity-0 transition-opacity")} />
+        break
+      case "talks":
+        icon = <SquareTerminal className={cn("size-5", isActive ? "text-primary" : mounted ? (isDarkMode ? "text-gray-300" : "text-gray-500") : "opacity-0 transition-opacity")} />
         break
       default:
         icon = <SquareTerminal className={cn("size-5", isActive ? "text-primary" : mounted ? (isDarkMode ? "text-gray-300" : "text-gray-500") : "opacity-0 transition-opacity")} />

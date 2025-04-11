@@ -51,6 +51,30 @@ const publications = defineCollection({
   },
 });
 
+const talks = defineCollection({
+  name: "talks",
+  directory: "src/content/talks",
+  include: "**/index.md",
+  schema: (z) => ({
+    title: z.string(),
+    date: z.string(),
+    event: z.string(),
+    location: z.string().optional(),
+    featured: z.boolean().optional().default(false),
+    summary: z.string(),
+    coverImage: z.string().optional(),
+    videoUrl: z.string().optional(),
+    slidesUrl: z.string().optional(),
+    keywords: z.array(z.string()).optional(),
+  }),
+  transform: async (document) => {
+    return {
+      ...document,
+      slug: document._meta.path.replace(/\/index$/, ''),
+    };
+  },
+});
+
 export default defineConfig({
-  collections: [blogs, publications],
+  collections: [blogs, publications, talks],
 });

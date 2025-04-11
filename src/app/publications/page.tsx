@@ -39,7 +39,7 @@ export default function PublicationsPage() {
                 </button>
                 <div className="flex-1">
                   <h2 className="text-2xl font-semibold">{pub.title}</h2>
-                  <p className="text-gray-700 mt-1">
+                  <p className="text-gray-600 dark:text-gray-300 mt-1">
                     {pub.authors.join(", ")}
                   </p>
                   <p className="text-gray-600 italic mt-1">

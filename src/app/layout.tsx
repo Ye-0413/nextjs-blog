@@ -4,6 +4,10 @@ import { Header } from "@/components/header";
 import { config } from "@/lib/config";
 import { Inter } from "next/font/google";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import { Analytics } from "@/components/analytics";
+import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Navbar } from "@/components/Navbar";
+import ParticlesBackground from "@/components/ParticlesBackground";
 
 // Load Inter font
 const inter = Inter({
@@ -77,16 +81,23 @@ export default function RootLayout({
       </head>
       <body className="min-w-md overflow-x-hidden flex flex-col min-h-screen">
         <ThemeProvider>
-          <Header />
-          <main className="flex-grow">
-            {children}
-          </main>
+          <div className="relative min-h-screen">
+            <ParticlesBackground />
+            <div className="relative z-10">
+              <Navbar />
+              <main className="flex-grow">
+                {children}
+              </main>
+            </div>
+          </div>
           <footer className="py-6 mt-12 border-t border-gray-200 dark:border-gray-800">
             <div className="max-w-6xl mx-auto px-4 text-center text-gray-600 dark:text-gray-400 text-sm">
               © 2025 Ye Jia. All rights reserved.
             </div>
           </footer>
         </ThemeProvider>
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
