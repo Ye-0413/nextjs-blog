@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://xxx.com</id>
     <title>Your Blog</title>
-    <updated>2025-04-05T13:14:31.224Z</updated>
+    <updated>2025-04-11T19:03:40.065Z</updated>
     <generator>Feed for Node.js</generator>
     <author>
         <name>Your Name</name>
@@ -15,6 +15,201 @@
     <logo>https://xxx.com/favicon.png</logo>
     <icon>https://xxx.com/favicon.ico</icon>
     <rights>All rights reserved 2025, Your Name</rights>
+    <entry>
+        <title type="html"><![CDATA[Intoduction to ladin square design]]></title>
+        <id>https://xxx.com/blog/experiment</id>
+        <link href="https://xxx.com/blog/experiment"/>
+        <updated>2025-04-05T13:10:00.000Z</updated>
+        <summary type="html"><![CDATA[This content will introduce the ladin square deisgn with some examples]]></summary>
+        <content type="html"><![CDATA[<p>Anything you need to know.</p>
+]]></content>
+        <author>
+            <name>Your Name</name>
+            <email>your.email@example.com</email>
+            <uri>https://xxx.com</uri>
+        </author>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[博客模板使用介绍]]></title>
+        <id>https://xxx.com/blog/intro</id>
+        <link href="https://xxx.com/blog/intro"/>
+        <updated>2025-04-05T13:10:00.000Z</updated>
+        <summary type="html"><![CDATA[这是一个 Nextjs 博客模板，本文会介绍这个模板的一些基本用法]]></summary>
+        <content type="html"><![CDATA[<p>这是一个 Nextjs 博客模板，本文会介绍这个模板的一些基本用法。</p>
+<h2>1. 如何编写博客</h2>
+<p>这个仓库的博客文件需要放在 <code>src/content/blog</code> 目录下，可以是 markdown 文件，也可以是 mdx 文件。</p>
+<p>有以下这些元数据需要用户自行根据需要进行配置：</p>
+<ul>
+<li><code>title</code>: 博客标题</li>
+<li><code>date</code>: 博客发布日期</li>
+<li><code>updated</code>: 博客更新日期</li>
+<li><code>keywords</code>: 博客关键词，优化 SEO</li>
+<li><code>featured</code>: 是否放在首页</li>
+<li><code>summary</code>: 博客摘要</li>
+</ul>
+<h2>2. 博客配置</h2>
+<p>博客的所有配置都集中在 <code>src/lib/config.ts</code> 文件中，这样做的好处是：</p>
+<ol>
+<li>集中管理：所有配置都在一个文件中，方便维护和修改</li>
+<li>类型安全：使用 TypeScript 可以获得类型检查和自动补全</li>
+<li>复用性：避免重复的配置散落在各个文件中</li>
+<li>一致性：确保所有地方使用相同的配置值</li>
+</ol>
+<h3>2.1 站点基本配置</h3>
+<pre><code class="language-typescript">site: {
+  title: &quot;你的博客标题&quot;,
+  name: &quot;你的博客名称&quot;,
+  description: &quot;博客描述&quot;,
+  keywords: [&quot;关键词1&quot;, &quot;关键词2&quot;],
+  url: &quot;https://你的域名.com&quot;,
+  baseUrl: &quot;https://你的域名.com&quot;,
+  image: &quot;https://你的域名.com/og-image.png&quot;,
+  favicon: {
+    ico: &quot;/favicon.ico&quot;,
+    png: &quot;/favicon.png&quot;,
+    svg: &quot;/favicon.svg&quot;,
+    appleTouchIcon: &quot;/favicon.png&quot;,
+  },
+  manifest: &quot;/site.webmanifest&quot;,
+}
+</code></pre>
+<p>这些配置用于：</p>
+<ul>
+<li>网站的基本信息展示</li>
+<li>SEO 优化</li>
+<li>浏览器标签页图标</li>
+<li>社交媒体分享预览</li>
+</ul>
+<h3>2.2 作者信息配置</h3>
+<pre><code class="language-typescript">author: {
+  name: &quot;你的名字&quot;,
+  email: &quot;你的邮箱&quot;,
+  bio: &quot;个人简介&quot;,
+}
+</code></pre>
+<p>作者信息会用于：</p>
+<ul>
+<li>首页展示</li>
+<li>RSS 订阅源信息</li>
+<li>博客文章的作者信息</li>
+</ul>
+<h3>2.3 社交媒体配置</h3>
+<pre><code class="language-typescript">social: {
+  github: &quot;https://github.com/你的用户名&quot;,
+  x: &quot;https://x.com/你的用户名&quot;,
+  xiaohongshu: &quot;https://www.xiaohongshu.com/user/profile/你的ID&quot;,
+  wechat: &quot;你的微信二维码图片链接&quot;,
+  buyMeACoffee: &quot;https://www.buymeacoffee.com/你的用户名&quot;,
+}
+</code></pre>
+<p>这些链接会显示在：</p>
+<ul>
+<li>首页的社交媒体链接区域</li>
+<li>导航栏的社交媒体图标</li>
+</ul>
+<h3>2.4 评论系统配置</h3>
+<pre><code class="language-typescript">giscus: {
+  repo: &quot;你的GitHub仓库名&quot;,
+  repoId: &quot;仓库ID&quot;,
+  categoryId: &quot;分类ID&quot;,
+}
+</code></pre>
+<p>使用 Giscus 作为评论系统，需要：</p>
+<ol>
+<li>在 GitHub 上安装 Giscus 应用</li>
+<li>在你的仓库中启用 Discussions</li>
+<li>获取配置信息并填入这里</li>
+</ol>
+<h3>2.5 导航菜单配置</h3>
+<pre><code class="language-typescript">navigation: {
+  main: [
+    { 
+      title: &quot;文章&quot;, 
+      href: &quot;/blog&quot;,
+    },
+    // 可以添加更多导航项
+  ],
+}
+</code></pre>
+<p>这里配置网站的导航菜单，支持：</p>
+<ul>
+<li>普通链接</li>
+<li>带子菜单的下拉菜单</li>
+</ul>
+<h3>2.6 SEO 配置</h3>
+<pre><code class="language-typescript">seo: {
+  metadataBase: new URL(&quot;https://你的域名.com&quot;),
+  alternates: {
+    canonical: &#39;./&#39;,
+  },
+  openGraph: {
+    type: &quot;website&quot; as const,
+    locale: &quot;zh_CN&quot;,
+  },
+  twitter: {
+    card: &quot;summary_large_image&quot; as const,
+    creator: &quot;@你的推特用户名&quot;,
+  },
+}
+</code></pre>
+<p>这些配置用于：</p>
+<ul>
+<li>搜索引擎优化</li>
+<li>社交媒体分享卡片</li>
+<li>网站元数据</li>
+</ul>
+<h3>2.7 RSS 订阅配置</h3>
+<pre><code class="language-typescript">rss: {
+  title: &quot;你的博客标题&quot;,
+  description: &quot;博客描述&quot;,
+  feedLinks: {
+    rss2: &quot;/rss.xml&quot;,
+    json: &quot;/feed.json&quot;,
+    atom: &quot;/atom.xml&quot;,
+  },
+}
+</code></pre>
+<p>这些配置用于生成：</p>
+<ul>
+<li>RSS 2.0 订阅源</li>
+<li>JSON Feed</li>
+<li>Atom 订阅源</li>
+</ul>
+<h2>3. 如何修改配置</h2>
+<ol>
+<li>打开 <code>src/lib/config.ts</code> 文件</li>
+<li>根据你的需求修改相应的配置项</li>
+<li>保存文件后，Next.js 会自动重新构建并应用新的配置</li>
+</ol>
+<p>注意事项：</p>
+<ul>
+<li>确保所有 URL 都是有效的</li>
+<li>图片链接应该是可访问的</li>
+<li>社交媒体链接要填写完整的 URL</li>
+<li>配置修改后，建议检查网站的：<ul>
+<li>首页展示</li>
+<li>导航菜单</li>
+<li>SEO 信息</li>
+<li>社交媒体分享效果</li>
+<li>RSS 订阅源</li>
+</ul>
+</li>
+</ul>
+<h2>4. 如何生成 RSS 订阅源</h2>
+<p>修改 scripts/generate-rss.js 文件中的配置，然后运行：</p>
+<pre><code class="language-bash">npm run generate-rss
+</code></pre>
+<h2>5. 如何生成 Sitemap</h2>
+<p>修改 scripts/generate-sitemap.js 文件中的配置，然后运行：</p>
+<pre><code class="language-bash">npm run generate-sitemap
+</code></pre>
+]]></content>
+        <author>
+            <name>Your Name</name>
+            <email>your.email@example.com</email>
+            <uri>https://xxx.com</uri>
+        </author>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Markdown 基本用法]]></title>
         <id>https://xxx.com/blog/hello-world</id>
@@ -142,33 +337,6 @@ for (var i=0; i&lt;100; i++) {
 <li><a href="https://guides.github.com/features/mastering-markdown/">https://guides.github.com/features/mastering-markdown/</a>  </li>
 <li><a href="https://help.github.com/articles/basic-writing-and-formatting-syntax/">https://help.github.com/articles/basic-writing-and-formatting-syntax/</a></li>
 </ul>
-]]></content>
-        <author>
-            <name>Your Name</name>
-            <email>your.email@example.com</email>
-            <uri>https://xxx.com</uri>
-        </author>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[博客模板介绍]]></title>
-        <id>https://xxx.com/blog/intro</id>
-        <link href="https://xxx.com/blog/intro"/>
-        <updated>2025-04-05T12:10:00.000Z</updated>
-        <summary type="html"><![CDATA[这是一个 Nextjs 博客模板，本文会介绍这个模板的一些基本用法]]></summary>
-        <content type="html"><![CDATA[<p>这是一个 Nextjs 博客模板，本文会介绍这个模板的一些基本用法。</p>
-<p>这个博客模板并没有设计成一个开箱即用的配置型模板，需要用户自行在代码中找到对应的配置。</p>
-<h2>1. 如何编写博客</h2>
-<p>这个仓库的博客文件需要放在 <code>src/content/blog</code> 目录下，可以是 markdown 文件，也可以是 mdx 文件。</p>
-<p>有以下这些元数据需要用户自行根据需要进行配置：</p>
-<ul>
-<li><code>title</code>: 博客标题</li>
-<li><code>date</code>: 博客发布日期</li>
-<li><code>updated</code>: 博客更新日期</li>
-<li><code>keywords</code>: 博客关键词，优化 SEO</li>
-<li><code>featured</code>: 是否放在首页</li>
-<li><code>summary</code>: 博客摘要</li>
-</ul>
-<h2>2. 博客配置</h2>
 ]]></content>
         <author>
             <name>Your Name</name>

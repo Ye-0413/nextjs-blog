@@ -4,15 +4,21 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [
   {
     "url": "/",
-    lastModified: new Date("2025-04-05T13:14:53.941Z"),
+    lastModified: new Date("2025-04-11T19:03:39.806Z"),
     "changeFrequency": "daily",
     "priority": 1
   },
   {
     "url": "/blog",
-    lastModified: new Date("2025-04-05T13:14:53.942Z"),
+    lastModified: new Date("2025-04-11T19:03:39.806Z"),
     "changeFrequency": "daily",
     "priority": 0.9
+  },
+  {
+    "url": "blog/experiment",
+    lastModified: new Date("2025-04-05T13:10:00.000Z"),
+    "changeFrequency": "weekly",
+    "priority": 0.8
   },
   {
     "url": "blog/hello-world",
@@ -22,7 +28,67 @@ export default function sitemap(): MetadataRoute.Sitemap {
   },
   {
     "url": "blog/intro",
-    lastModified: new Date("2025-04-05T12:10:00.000Z"),
+    lastModified: new Date("2025-04-05T13:10:00.000Z"),
+    "changeFrequency": "weekly",
+    "priority": 0.8
+  },
+  {
+    "url": "publications/2020-design-of-intelligent-multi-layer-three-dimensional-bicycle-parking-garage",
+    lastModified: new Date("2025-04-11T19:03:39.799Z"),
+    "changeFrequency": "weekly",
+    "priority": 0.8
+  },
+  {
+    "url": "publications/2023-from-classroom-to-metaverse-a-study-on-gamified-constructivist-teaching-in-higher-education",
+    lastModified: new Date("2025-04-11T19:03:39.802Z"),
+    "changeFrequency": "weekly",
+    "priority": 0.8
+  },
+  {
+    "url": "publications/2023-signal-to-image-rolling-bearing-fault-diagnosis-using-resnet-family-deep-learning-models",
+    lastModified: new Date("2025-04-11T19:03:39.803Z"),
+    "changeFrequency": "weekly",
+    "priority": 0.8
+  },
+  {
+    "url": "publications/2023-towards-an-edu-metaverse-of-knowledge-immersive-exploration-of-university-courses",
+    lastModified: new Date("2025-04-11T19:03:39.803Z"),
+    "changeFrequency": "weekly",
+    "priority": 0.8
+  },
+  {
+    "url": "publications/2024-illumotion-an-optical-illusion-based-vr-locomotion-technique-for-long-distance-3d-movement",
+    lastModified: new Date("2025-04-11T19:03:39.804Z"),
+    "changeFrequency": "weekly",
+    "priority": 0.8
+  },
+  {
+    "url": "publications/2024-knowledge-graph-driven-mind-mapping-for-immersive-collaborative-learning-a-pilot-study-in-edu-metaverse",
+    lastModified: new Date("2025-04-11T19:03:39.804Z"),
+    "changeFrequency": "weekly",
+    "priority": 0.8
+  },
+  {
+    "url": "publications/2024-nivta-towards-a-naturally-interactable-edu-metaverse-teaching-assistant-for-cave",
+    lastModified: new Date("2025-04-11T19:03:39.805Z"),
+    "changeFrequency": "weekly",
+    "priority": 0.8
+  },
+  {
+    "url": "publications/2025-traceable-teleportation",
+    lastModified: new Date("2025-04-11T19:03:39.805Z"),
+    "changeFrequency": "weekly",
+    "priority": 0.8
+  },
+  {
+    "url": "talks/ICWL_2024/index",
+    lastModified: new Date("2025-04-11T19:03:39.806Z"),
+    "changeFrequency": "weekly",
+    "priority": 0.8
+  },
+  {
+    "url": "talks/MetaCom_2024/index",
+    lastModified: new Date("2025-04-11T19:03:39.806Z"),
     "changeFrequency": "weekly",
     "priority": 0.8
   }
