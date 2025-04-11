@@ -7,9 +7,10 @@ import { usePathname } from "next/navigation"
 import { cn } from "@/lib/utils"
 import Dock, { DockItem } from "@/components/Dock"
 import { LayoutGroup } from "framer-motion"
-import { Home, Book, FileText, SquareTerminal } from "lucide-react"
+import { Home, Book, FileText, SquareTerminal, Bell } from "lucide-react"
 import { useTheme } from "next-themes"
 import { useEffect, useState } from "react"
+import { menuItems } from "./nav-data"
 
 interface NavItemWithHref extends DockItem {
   href: string
@@ -29,11 +30,10 @@ export function NavDesktopMenu() {
   // Only use theme after mounting to prevent hydration mismatch
   const isDarkMode = mounted && (resolvedTheme === 'dark')
 
-  // Define navigation items manually
+  // Use navigation items from config
   const navItems = [
     { title: "Home", href: "/" },
-    { title: "Blog", href: "/blog" },
-    { title: "Publications", href: "/publications" },
+    ...menuItems.map(item => ({ title: item.title, href: item.href || '#' })),
     { title: "Talks", href: "/talks" }
   ]
 
@@ -50,8 +50,12 @@ export function NavDesktopMenu() {
       case "home":
         icon = <Home className={cn("size-5", isActive ? "text-primary" : mounted ? (isDarkMode ? "text-gray-300" : "text-gray-500") : "opacity-0 transition-opacity")} />
         break
+      case "articles":
       case "blog":
         icon = <FileText className={cn("size-5", isActive ? "text-primary" : mounted ? (isDarkMode ? "text-gray-300" : "text-gray-500") : "opacity-0 transition-opacity")} />
+        break
+      case "news":
+        icon = <Bell className={cn("size-5", isActive ? "text-primary" : mounted ? (isDarkMode ? "text-gray-300" : "text-gray-500") : "opacity-0 transition-opacity")} />
         break
       case "publications":
         icon = <Book className={cn("size-5", isActive ? "text-primary" : mounted ? (isDarkMode ? "text-gray-300" : "text-gray-500") : "opacity-0 transition-opacity")} />

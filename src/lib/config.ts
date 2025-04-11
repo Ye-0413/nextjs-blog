@@ -48,6 +48,10 @@ export const config = {
       {
         title: "Articles",
         href: "/blog",
+      },
+      {
+        title: "News",
+        href: "/news",
       }
     ],
   },

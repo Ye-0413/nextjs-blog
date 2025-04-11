@@ -2,17 +2,25 @@ import Link from "next/link";
 
 export default function KeywordNotFound() {
   return (
-    <div className="max-w-4xl mx-auto py-12 px-4 text-center">
-      <h1 className="text-3xl font-bold mb-4">No matching content found</h1>
-      <p className="text-gray-600 mb-8">
-        We couldn't find any publications or articles with this keyword.
+    <div className="flex flex-col items-center justify-center min-h-[60vh] px-4 text-center">
+      <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">Keyword Not Found</h1>
+      <p className="text-gray-600 dark:text-gray-400 mb-8 max-w-md">
+        We couldn't find any content with the specified keyword.
       </p>
-      <Link 
-        href="/"
-        className="inline-flex bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md transition-colors"
-      >
-        Return to home
-      </Link>
+      <div className="flex flex-wrap gap-4 justify-center">
+        <Link 
+          href="/keywords"
+          className="px-6 py-3 bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+        >
+          View All Keywords
+        </Link>
+        <Link 
+          href="/"
+          className="px-6 py-3 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors"
+        >
+          Go Back Home
+        </Link>
+      </div>
     </div>
   );
 } 

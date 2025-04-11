@@ -2,7 +2,6 @@
 
 import React, { useEffect, useState } from "react";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
-import Lanyard from "./Lanyard";
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [mounted, setMounted] = useState(false);
@@ -15,7 +14,6 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   return (
     <NextThemesProvider attribute="class" defaultTheme="system" enableSystem>
       {children}
-      {mounted && <Lanyard />}
     </NextThemesProvider>
   );
 } 

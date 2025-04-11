@@ -4,13 +4,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [
   {
     "url": "/",
-    lastModified: new Date("2025-04-11T19:03:39.806Z"),
+    lastModified: new Date("2025-04-11T19:29:06.119Z"),
     "changeFrequency": "daily",
     "priority": 1
   },
   {
     "url": "/blog",
-    lastModified: new Date("2025-04-11T19:03:39.806Z"),
+    lastModified: new Date("2025-04-11T19:29:06.119Z"),
     "changeFrequency": "daily",
     "priority": 0.9
   },
@@ -33,62 +33,98 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "priority": 0.8
   },
   {
+    "url": "news/20250331/index",
+    lastModified: new Date("2025-04-11T19:29:06.109Z"),
+    "changeFrequency": "weekly",
+    "priority": 0.8
+  },
+  {
+    "url": "news/20250401/index",
+    lastModified: new Date("2025-04-11T19:29:06.111Z"),
+    "changeFrequency": "weekly",
+    "priority": 0.8
+  },
+  {
+    "url": "news/20250402/index",
+    lastModified: new Date("2025-04-11T19:29:06.112Z"),
+    "changeFrequency": "weekly",
+    "priority": 0.8
+  },
+  {
+    "url": "news/20250403/index",
+    lastModified: new Date("2025-04-11T19:29:06.112Z"),
+    "changeFrequency": "weekly",
+    "priority": 0.8
+  },
+  {
+    "url": "news/20250404/index",
+    lastModified: new Date("2025-04-11T19:29:06.113Z"),
+    "changeFrequency": "weekly",
+    "priority": 0.8
+  },
+  {
+    "url": "news/20250405/index",
+    lastModified: new Date("2025-04-11T19:29:06.113Z"),
+    "changeFrequency": "weekly",
+    "priority": 0.8
+  },
+  {
     "url": "publications/2020-design-of-intelligent-multi-layer-three-dimensional-bicycle-parking-garage",
-    lastModified: new Date("2025-04-11T19:03:39.799Z"),
+    lastModified: new Date("2025-04-11T19:29:06.114Z"),
     "changeFrequency": "weekly",
     "priority": 0.8
   },
   {
     "url": "publications/2023-from-classroom-to-metaverse-a-study-on-gamified-constructivist-teaching-in-higher-education",
-    lastModified: new Date("2025-04-11T19:03:39.802Z"),
+    lastModified: new Date("2025-04-11T19:29:06.114Z"),
     "changeFrequency": "weekly",
     "priority": 0.8
   },
   {
     "url": "publications/2023-signal-to-image-rolling-bearing-fault-diagnosis-using-resnet-family-deep-learning-models",
-    lastModified: new Date("2025-04-11T19:03:39.803Z"),
+    lastModified: new Date("2025-04-11T19:29:06.115Z"),
     "changeFrequency": "weekly",
     "priority": 0.8
   },
   {
     "url": "publications/2023-towards-an-edu-metaverse-of-knowledge-immersive-exploration-of-university-courses",
-    lastModified: new Date("2025-04-11T19:03:39.803Z"),
+    lastModified: new Date("2025-04-11T19:29:06.115Z"),
     "changeFrequency": "weekly",
     "priority": 0.8
   },
   {
     "url": "publications/2024-illumotion-an-optical-illusion-based-vr-locomotion-technique-for-long-distance-3d-movement",
-    lastModified: new Date("2025-04-11T19:03:39.804Z"),
+    lastModified: new Date("2025-04-11T19:29:06.116Z"),
     "changeFrequency": "weekly",
     "priority": 0.8
   },
   {
     "url": "publications/2024-knowledge-graph-driven-mind-mapping-for-immersive-collaborative-learning-a-pilot-study-in-edu-metaverse",
-    lastModified: new Date("2025-04-11T19:03:39.804Z"),
+    lastModified: new Date("2025-04-11T19:29:06.116Z"),
     "changeFrequency": "weekly",
     "priority": 0.8
   },
   {
     "url": "publications/2024-nivta-towards-a-naturally-interactable-edu-metaverse-teaching-assistant-for-cave",
-    lastModified: new Date("2025-04-11T19:03:39.805Z"),
+    lastModified: new Date("2025-04-11T19:29:06.116Z"),
     "changeFrequency": "weekly",
     "priority": 0.8
   },
   {
     "url": "publications/2025-traceable-teleportation",
-    lastModified: new Date("2025-04-11T19:03:39.805Z"),
+    lastModified: new Date("2025-04-11T19:29:06.117Z"),
     "changeFrequency": "weekly",
     "priority": 0.8
   },
   {
     "url": "talks/ICWL_2024/index",
-    lastModified: new Date("2025-04-11T19:03:39.806Z"),
+    lastModified: new Date("2025-04-11T19:29:06.118Z"),
     "changeFrequency": "weekly",
     "priority": 0.8
   },
   {
     "url": "talks/MetaCom_2024/index",
-    lastModified: new Date("2025-04-11T19:03:39.806Z"),
+    lastModified: new Date("2025-04-11T19:29:06.119Z"),
     "changeFrequency": "weekly",
     "priority": 0.8
   }

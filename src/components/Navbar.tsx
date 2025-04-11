@@ -34,6 +34,16 @@ export function Navbar() {
                 Blog
               </Link>
               <Link
+                href="/news"
+                className={`text-sm ${
+                  isActive("/news")
+                    ? "text-gray-900 dark:text-white"
+                    : "text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
+                }`}
+              >
+                News
+              </Link>
+              <Link
                 href="/publications"
                 className={`text-sm ${
                   isActive("/publications")

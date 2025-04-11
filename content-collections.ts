@@ -75,6 +75,27 @@ const talks = defineCollection({
   },
 });
 
+const news = defineCollection({
+  name: "news",
+  directory: "src/content/news",
+  include: "**/index.md",
+  schema: (z) => ({
+    title: z.string(),
+    date: z.string(),
+    authors: z.array(z.string()).optional(),
+    publication_types: z.array(z.string()).optional().nullable(),
+  }),
+  transform: async (document) => {
+    return {
+      ...document,
+      slug: document._meta.path.replace(/\/index$/, ''),
+      // Extract the date from the directory name (YYYYMMDD format)
+      dateFormatted: document._meta.path.substring(0, 8),
+      content: document.content || '',
+    };
+  },
+});
+
 export default defineConfig({
-  collections: [blogs, publications, talks],
+  collections: [blogs, publications, talks, news],
 });
