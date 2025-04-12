@@ -30,6 +30,7 @@
     "clsx": "^2.1.1",
     "date-fns": "^4.1.0",
     "framer-motion": "^12.6.3",
+    "gsap": "^3.12.7",
     "highlight.js": "^11.11.1",
     "lucide-react": "^0.484.0",
     "meshline": "^3.3.1",

@@ -85,12 +85,6 @@ export default function NewsPage() {
                         <div dangerouslySetInnerHTML={{ __html: newsItem.content }} />
                       </div>
                     </div>
-                    
-                    {newsItem.authors && newsItem.authors.length > 0 && (
-                      <div className="mt-4 pt-3 border-t border-gray-200 dark:border-gray-700 text-sm text-gray-600 dark:text-gray-300">
-                        By: {newsItem.authors.join(', ')}
-                      </div>
-                    )}
                   </article>
                 </SpotlightCard>
               ))}

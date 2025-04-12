@@ -1,23 +1,47 @@
 "use client";
 
-import { allBlogs, allPublications } from "content-collections";
+import { allBlogs, allPublications, allNews } from "content-collections";
 import Link from "next/link";
-import count from 'word-count'
+import count from 'word-count';
 import { config } from "@/lib/config";
 import Particles from "@/components/Particles";
 import TextPressure from "@/components/TextPressure";
 import SpotlightCard from "@/components/SpotlightCard";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { ExternalLink } from "lucide-react";
 import { allTalks } from "@/lib/talk-data";
 import Image from "next/image";
+import NewsItem from "@/components/NewsItem";
+import { gsap } from "gsap";
+import { InfiniteScroll } from "@/components/InfiniteScroll";
 
 export default function Home() {
   const [mounted, setMounted] = useState(false);
+  // State to track if device is mobile
+  const [isMobile, setIsMobile] = useState(false);
   
   // Hydration fix for server/client mismatch with WebGL content
   useEffect(() => {
+    if (typeof window === 'undefined') return;
+    
+    // Check if device is mobile based on window width
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    
+    // Set initial value
+    checkMobile();
+    
+    // Add event listener for window resize
+    window.addEventListener("resize", checkMobile);
+    
+    // Set mounted state for hydration
     setMounted(true);
+    
+    // Cleanup
+    return () => {
+      window.removeEventListener("resize", checkMobile);
+    };
   }, []);
   
   const blogs = allBlogs
@@ -31,6 +55,38 @@ export default function Home() {
   const featuredTalks = allTalks
     .filter((talk) => talk.featured === true)
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+    
+  // Get latest 6 news items for infinite scroll
+  const latestNews = useMemo(() => {
+    if (!mounted) return [];
+    
+    console.log("allNews content:", allNews);
+    
+    const newsItems = [...allNews]
+      .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+      .slice(0, 6)
+      .map(news => ({
+        content: (
+          <NewsItem
+            key={news.slug}
+            title={news.title}
+            date={news.date}
+            slug={news.slug}
+            content={news.content}
+            authors={news.authors}
+          />
+        )
+      }));
+      
+    console.log("latestNews items:", newsItems.length);
+    return newsItems;
+  }, [mounted]);
+
+  // Set scroll parameters directly in code - adjust these values as needed
+  const SCROLL_SPEED = 0.8;  // Increase value for faster scrolling
+  const SCROLL_DIRECTION: "up" | "down" = "down";
+  const AUTO_PLAY = true;     // true for auto-scrolling, false to disable
+  const PAUSE_ON_HOVER = true;
 
   return (
     <div className="relative min-h-screen">
@@ -74,6 +130,67 @@ export default function Home() {
             </div>
           </div>
         </SpotlightCard>
+
+        {/* News Section */}
+        {mounted && (
+          <div className="mb-16">
+            <h2 className="text-2xl font-bold mb-6 text-gray-900 dark:text-white">Latest Updates</h2>
+            
+            {allNews && allNews.length > 0 ? (
+              <div className="grid grid-cols-1 gap-6">
+                {[...allNews]
+                  .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+                  .slice(0, 6)
+                  .map(news => (
+                    <SpotlightCard 
+                      key={news.slug}
+                      className="p-4 transition-all hover:shadow-md"
+                      lightModeSpotlightColor="rgba(93, 140, 179, 0.15)"
+                      darkModeSpotlightColor="rgba(93, 140, 179, 0.25)"
+                    >
+                      <article className="flex flex-col">
+                        <div className="flex-1">
+                          <div className="flex flex-col justify-between">
+                            <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+                              {news.title}
+                            </h3>
+                            <time 
+                              dateTime={news.date} 
+                              className="text-sm text-gray-500 dark:text-gray-400 mb-3"
+                            >
+                              {new Date(news.date).toLocaleDateString('en-US', {
+                                year: 'numeric',
+                                month: 'long',
+                                day: 'numeric'
+                              })}
+                            </time>
+                          </div>
+                          
+                          <div className="prose prose-sm dark:prose-invert max-w-none text-gray-600 dark:text-gray-300">
+                            <div dangerouslySetInnerHTML={{ __html: news.content }} />
+                          </div>
+                        </div>
+                        
+                        <div className="mt-4 pt-3 border-t border-gray-200 dark:border-gray-700">
+                          <Link
+                            href={`/news#${new Date(news.date).toLocaleDateString('en-US', {month: 'long', year: 'numeric'}).toLowerCase().replace(' ', '-')}`}
+                            className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 text-sm font-medium"
+                          >
+                            Read more
+                          </Link>
+                        </div>
+                      </article>
+                    </SpotlightCard>
+                  ))
+                }
+              </div>
+            ) : (
+              <div className="p-4 border border-gray-200 dark:border-gray-700 rounded-md">
+                <p className="text-gray-500 dark:text-gray-400">No news items available.</p>
+              </div>
+            )}
+          </div>
+        )}
 
         {/* Featured Articles Section */}
         <div className="space-y-6 mb-16">

@@ -1,0 +1,115 @@
+.infinite-scroll-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  overflow: hidden;
+  overscroll-behavior: none;
+  min-height: 200px;
+  height: auto;
+}
+
+.infinite-scroll-wrapper::before,
+.infinite-scroll-wrapper::after {
+  content: "";
+  position: absolute;
+  background: linear-gradient(var(--dir, to bottom), rgba(0, 0, 0, 0.3), transparent);
+  height: 25%;
+  width: 100%;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.infinite-scroll-wrapper::before {
+  top: 0;
+}
+
+.infinite-scroll-wrapper::after {
+  --dir: to top;
+  bottom: 0;
+}
+
+.infinite-scroll-container {
+  display: flex;
+  flex-direction: column;
+  overscroll-behavior: contain;
+  padding-inline: 1rem;
+  cursor: grab;
+  transform-origin: center center;
+  width: 100%;
+  height: auto;
+}
+
+.infinite-scroll-container-inner {
+  width: 100%;
+  position: relative;
+  overflow-y: auto;
+}
+
+.infinite-scroll-item {
+  --accent-color: rgba(100, 100, 100, 0.1);
+  border-radius: 15px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 1rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+  text-align: left;
+  border: 2px solid var(--accent-color);
+  user-select: none;
+  box-sizing: border-box;
+  position: relative;
+  background-color: var(--bg-color, rgba(0, 0, 0, 0.03));
+  color: var(--text-color, inherit);
+  margin-bottom: 0.5rem;
+  width: 100%;
+  min-height: auto;
+  height: auto;
+  overflow: visible;
+}
+
+/* Mobile-specific adjustments */
+@media (max-width: 768px) {
+  .infinite-scroll-item {
+    font-size: 1rem;
+    padding: 0.75rem;
+    transform: none !important;
+    margin-bottom: 1rem;
+  }
+  
+  .infinite-scroll-wrapper {
+    min-height: 150px;
+    overflow-y: auto;
+  }
+  
+  .infinite-scroll-container,
+  .infinite-scroll-container-inner {
+    transform: none !important;
+    cursor: default;
+    overflow-y: visible;
+    padding: 1rem 0.5rem;
+  }
+  
+  .infinite-scroll-wrapper::before,
+  .infinite-scroll-wrapper::after {
+    display: none;
+  }
+  
+  .mobile-view {
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+.dark .infinite-scroll-item {
+  --accent-color: rgba(255, 255, 255, 0.1);
+  --bg-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Prevent text selection */
+.infinite-scroll-container * {
+  user-select: none;
+  -webkit-user-select: none;
+} 
