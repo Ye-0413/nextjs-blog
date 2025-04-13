@@ -1,0 +1,96 @@
+.circular-text {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.circular-text span {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  font-weight: 600;
+  font-size: 1.5rem;
+  letter-spacing: 0.04em;
+  transform-origin: 0 0;
+  text-transform: uppercase;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Profile container styling */
+.profile-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.avatar-container {
+  position: relative;
+  width: 12rem;
+  height: 12rem;
+  margin-bottom: 1.25rem;
+}
+
+.avatar-ring {
+  position: absolute;
+  top: -2.5rem;
+  left: -2.5rem;
+  right: -2.5rem;
+  bottom: -2.5rem;
+  border-radius: 50%;
+  pointer-events: auto;
+  z-index: 10;
+}
+
+.profile-info {
+  line-height: 1.1;
+  margin-top: 0.25rem;
+}
+
+.profile-info h2 {
+  margin: 0;
+  font-size: 1.875rem;
+  font-weight: 700;
+}
+
+.profile-info .title {
+  margin-top: 0;
+  font-size: 1.25rem;
+  font-weight: 500;
+}
+
+.profile-info .university {
+  margin-top: 0;
+  font-size: 0.875rem;
+}
+
+.social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.social-icons svg {
+  width: 1.5rem;
+  height: 1.5rem;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.social-icons a:hover svg {
+  transform: scale(1.2);
+  color: #059669;
+} 

@@ -14,6 +14,8 @@ import Image from "next/image";
 import NewsItem from "@/components/NewsItem";
 import { gsap } from "gsap";
 import { InfiniteScroll } from "@/components/InfiniteScroll";
+import DecryptedText from "@/components/DecryptedText";
+import CircularText from "@/components/CircularText";
 
 export default function Home() {
   const [mounted, setMounted] = useState(false);
@@ -130,6 +132,137 @@ export default function Home() {
             </div>
           </div>
         </SpotlightCard>
+
+        {/* Personal Section - Ye Jia */}
+        <div className="mb-16">
+          <SpotlightCard 
+            className="p-6"
+            lightModeSpotlightColor="rgba(25, 39, 114, 0.2)"
+            darkModeSpotlightColor="rgba(25, 39, 114, 0.3)"
+          >
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {/* Left column - Photo and name */}
+              <div className="profile-container flex flex-col justify-center h-full">
+                <div className="avatar-container">
+                  <div className="avatar-ring">
+                    <CircularText 
+                      text="HCI * VR * METAVERSE * Education * AI *" 
+                      className="text-emerald-600 dark:text-emerald-500 font-extrabold"
+                      radius={130}
+                      delay={0}
+                      duration={30000}
+                    />
+                  </div>
+                  <div className="relative w-48 h-48 overflow-hidden rounded-full border-2 border-emerald-100 dark:border-emerald-900 shadow-lg">
+                    <Image
+                      src="/images/personl/avatar.jpeg"
+                      alt="Ye Jia"
+                      fill
+                      className="object-cover"
+                      priority
+                    />
+                  </div>
+                </div>
+                
+                <div className="profile-info">
+                  <h2 className="text-gray-900 dark:text-white">Ye Jia</h2>
+                  <div className="title text-gray-700 dark:text-gray-300">MPhil Student</div>
+                  <div className="university text-gray-600 dark:text-gray-400">The Hong Kong Polytechnic University</div>
+                </div>
+                
+                <div className="social-icons text-gray-600 dark:text-gray-400">
+                  <Link href="mailto:ye.jia@connect.polyu.hk" aria-label="Email">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
+                      <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                      <polyline points="22,6 12,13 2,6"></polyline>
+                    </svg>
+                  </Link>
+                  <Link href="https://github.com/Ye-0413" aria-label="GitHub">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
+                      <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                    </svg>
+                  </Link>
+                  <Link href="https://www.linkedin.com/in/yejia001/" aria-label="LinkedIn">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
+                      <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                      <rect x="2" y="9" width="4" height="12"></rect>
+                      <circle cx="4" cy="4" r="2"></circle>
+                    </svg>
+                  </Link>
+                  <Link href="https://scholar.google.com/citations?user=Dhz-nHEAAAAJ&hl=en" aria-label="Google Scholar">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
+                      <path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998a12.078 12.078 0 01.665-6.479L12 14z"></path>
+                      <path d="M12 14l-6.16-3.422a12.083 12.083 0 0111.32-1.13c.535.194 1.055.426 1.559.694L12 14z"></path>
+                      <path d="M5.176 10.578a12.13 12.13 0 015.64-6.855a12.13 12.13 0 015.845 6.498"></path>
+                    </svg>
+                  </Link>
+                  <Link href="https://orcid.org/0000-0002-0457-8083" aria-label="ORCID">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
+                      <circle cx="12" cy="12" r="10" />
+                      <path d="M12 6v12" />
+                      <path d="M9 6h.01" />
+                      <path d="M9 12h3" />
+                    </svg>
+                  </Link>
+                  <Link href="https://www.researchgate.net/" aria-label="ResearchGate">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
+                      <rect x="3" y="3" width="18" height="18" rx="2" />
+                      <path d="M7.5 12h3v6" />
+                      <path d="M7.5 9h.01" />
+                      <path d="M13.5 9l3 9" />
+                      <path d="M13.5 9l-3 9" />
+                    </svg>
+                  </Link>
+                </div>
+              </div>
+              
+              {/* Right column - About Me */}
+              <div className="md:col-span-2">
+                <h2 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">About Me</h2>
+                {mounted && (
+                  <DecryptedText
+                    text="Ye Jia is working toward his MPhil degree in the Department of Computing at Hong Kong Polytechnic University. His research interests include Virtual Reality, Metaverse Technology, and Extended Reality. He has authored and co-authored papers for the top-tire international conferences and journals, including the International Journal of Human-Computer Studies (IJHCS), IEEE Transactions on Learning Technologies (TLT), International Conference on Virtual Reality and 3D User Interfaces (IEEE VR), and the IEEE International Conference on Metaverse Computing, Networking, and Applications (MetaCom)."
+                    className="text-gray-600 dark:text-gray-300"
+                    parentClassName="mb-6 block"
+                    encryptedClassName="text-gray-600 dark:text-gray-300 opacity-70"
+                    speed={2}
+                    sequential={true}
+                    maxIterations={5}
+                    animateOn="mount"
+                    useOriginalCharsOnly={false}
+                    revealDirection="start"
+                    willChange={false}
+                  />
+                )}
+                
+                {/* Research Interests and Education in two columns */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {/* Research Interests */}
+                  <div>
+                    <h3 className="text-xl font-semibold mb-3 text-gray-800 dark:text-gray-200">Research Interests</h3>
+                    <ul className="list-disc list-inside space-y-1 text-gray-600 dark:text-gray-300">
+                      <li>Virtual Reality</li>
+                      <li>Metaverse Technology</li>
+                      <li>Extended Reality</li>
+                      <li>Human-Computer Interaction</li>
+                    </ul>
+                  </div>
+                  
+                  {/* Education */}
+                  <div>
+                    <h3 className="text-xl font-semibold mb-3 text-gray-800 dark:text-gray-200">Education</h3>
+                    <ul className="list-disc list-inside space-y-1 text-gray-600 dark:text-gray-300">
+                      <li>MPhil in Computer Science</li>
+                      <li className="text-sm ml-5">The Hong Kong Polytechnic University</li>
+                      <li>BEng in Robotics Engineering</li>
+                      <li className="text-sm ml-5">Chongqing University of Arts and Sciences</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </SpotlightCard>
+        </div>
 
         {/* News Section */}
         {mounted && (
